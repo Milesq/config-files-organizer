@@ -2,7 +2,12 @@ use configuer::Configuer;
 use serde::{Deserialize, Serialize};
 use std::env;
 
+mod copy_files;
+mod crud_dirs;
 mod messages;
+
+use copy_files::select_to_copy;
+use crud_dirs::open_crud;
 use messages::*;
 
 #[derive(Serialize, Deserialize, Clone, Default, Debug)]
@@ -11,8 +16,9 @@ struct MyData {
 }
 
 fn main() {
-    let config = Configuer::with_file("myIniFileName").on_create(|| MyData {
-        dirs: vec!["Default user name".into()],
+    let config = Configuer::with_file("config-files-ini.bin").on_create(|| {
+        let dirs = open_crud(None);
+        MyData { dirs }
     });
 
     let args: Vec<_> = env::args().collect();
@@ -30,11 +36,8 @@ fn main() {
     }
 
     let files = select_to_copy(config.data.dirs);
-    copy_files(files);
-}
 
-fn copy_files(_: Vec<String>) {}
-
-fn select_to_copy(_: Vec<String>) -> Vec<String> {
-    vec![]
+    for file in files {
+        println!("{}", file);
+    }
 }
