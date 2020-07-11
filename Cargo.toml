@@ -1,0 +1,10 @@
+[package]
+name = "config-files"
+version = "0.1.0"
+authors = ["Milesq <wmilosz88@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+dialoguer = "0.6.2"
+configuer = { git = "https://github.com/Milesq/configuer" }
+serde = { version = "1.0.114", features = ["derive"] }
