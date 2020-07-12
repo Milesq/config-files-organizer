@@ -16,8 +16,8 @@ struct MyData {
 }
 
 fn main() {
-    let config = Configuer::with_file("config-files-ini.bin").on_create(|| {
-        let dirs = open_crud(None);
+    let mut config = Configuer::with_file("config-files-ini.bin").on_create(|| {
+        let dirs = open_crud(Vec::new());
         MyData { dirs }
     });
 
@@ -32,6 +32,9 @@ fn main() {
         println!("{}", HELP_MSG);
         return;
     } else if switch_is_set(&["-m", "--manage-dirs"]) {
+        println!("Dodaj co najmniej tylko jeden folder do wyszukiwania plków");
+        config.data.dirs = open_crud(config.data.dirs);
+        config.save();
         return;
     }
 
