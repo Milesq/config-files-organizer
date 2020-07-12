@@ -1,5 +1,6 @@
 use dialoguer::MultiSelect;
 use std::{
+    env,
     fs::{self, DirEntry},
     io,
     path::Path,
@@ -56,4 +57,15 @@ pub fn select_to_copy(dirs: Vec<String>) -> Vec<String> {
         .map(|n| files[*n].path())
         .map(|n| n.to_str().unwrap().to_string())
         .collect()
+}
+
+pub fn copy_file(path: String) {
+    let file_name = Path::new(&path).file_name().unwrap().to_str().unwrap();
+
+    let mut current_dir = env::current_dir().unwrap();
+    current_dir.push(file_name);
+
+    if let Err(err) = fs::copy(&path, current_dir) {
+        println!("Nie można skopiować pliku\n{}\n\n\n{:?}", path, err);
+    }
 }

@@ -6,7 +6,7 @@ mod copy_files;
 mod crud_dirs;
 mod messages;
 
-use copy_files::select_to_copy;
+use copy_files::{copy_file, select_to_copy};
 use crud_dirs::open_crud;
 use messages::*;
 
@@ -45,6 +45,6 @@ fn main() {
     let files = select_to_copy(config.data.dirs);
 
     for file in files {
-        println!("{:?}", file);
+        copy_file(file);
     }
 }
