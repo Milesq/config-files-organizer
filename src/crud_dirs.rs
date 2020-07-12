@@ -1,5 +1,5 @@
 use dialoguer::{Input, MultiSelect, Select};
-use std::path::Path;
+use std::{convert::From, path::Path};
 
 mod console_utils;
 
@@ -64,24 +64,30 @@ enum MenuOption {
     Exit,
 }
 
+impl From<usize> for MenuOption {
+    fn from(n: usize) -> Self {
+        use MenuOption::*;
+
+        match n {
+            0 => AddDir,
+            1 => ListDir,
+            2 => RmDir,
+            3 => Exit,
+            _ => panic!(),
+        }
+    }
+}
+
 const ADD_DIR: &str = "Dodaj Katalog";
 const LIST_DIRS: &str = "Pokaż zapisane katalogi";
 const RM_DIR: &str = "Usuń Katalog";
 const EXIT: &str = "Wyjście";
 
 fn menu() -> MenuOption {
-    use MenuOption::*;
-
     let selected_opt = Select::new()
         .items(&[ADD_DIR, LIST_DIRS, RM_DIR, EXIT])
         .interact()
         .unwrap();
 
-    match selected_opt {
-        0 => AddDir,
-        1 => ListDir,
-        2 => RmDir,
-        3 => Exit,
-        _ => panic!(),
-    }
+    selected_opt.into()
 }
