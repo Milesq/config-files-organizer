@@ -69,7 +69,7 @@ dependencies = [
 [[package]]
 name = "configuer"
 version = "0.1.0"
-source = "git+https://github.com/Milesq/configuer#0335c7c0b9c546feb76c3f61ff20d9926ed4c2c1"
+source = "git+https://github.com/Milesq/configuer#e750a6670401a5c3548ee5e8ae29c9f7a5381506"
 dependencies = [
  "bincode",
  "dirs",

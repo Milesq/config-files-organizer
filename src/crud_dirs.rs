@@ -7,6 +7,8 @@ use console_utils as utils;
 
 pub fn open_crud(mut dirs: Vec<String>) -> Vec<String> {
     loop {
+        utils::clear_console();
+
         match menu() {
             MenuOption::Exit => break,
             MenuOption::ListDir => {
@@ -32,7 +34,22 @@ pub fn open_crud(mut dirs: Vec<String>) -> Vec<String> {
                 dirs.push(new_dir);
             }
             MenuOption::RmDir => {
-                println!("{:?}", dirs.as_slice());
+                if dirs.len() == 0 {
+                    println!("Nie ma dodanych katalogów");
+                    continue;
+                }
+
+                let mut to_remove = MultiSelect::new()
+                    .items(dirs.as_slice())
+                    .interact()
+                    .unwrap();
+
+                to_remove.sort_by(|a, b| b.partial_cmp(a).unwrap());
+
+                for to_remove_item in to_remove {
+                    println!("{}", to_remove_item);
+                    dirs.remove(to_remove_item);
+                }
             }
         }
     }

@@ -2,11 +2,11 @@ use configuer::Configuer;
 use serde::{Deserialize, Serialize};
 use std::env;
 
-mod copy_files;
+// mod copy_files;
 mod crud_dirs;
 mod messages;
 
-use copy_files::select_to_copy;
+// use copy_files::select_to_copy;
 use crud_dirs::open_crud;
 use messages::*;
 
@@ -16,9 +16,11 @@ struct MyData {
 }
 
 fn main() {
-    print!("{}[2J", 27 as char);
+    print!("{esc}[2J{esc}[1;1H", esc = 27 as char);
 
     let mut config = Configuer::with_file("config-files-ini.bin").on_create(|| {
+        println!("Dodaj co najmniej jeden folder do wyszukiwania plków");
+
         let dirs = open_crud(Vec::new());
         MyData { dirs }
     });
@@ -34,15 +36,15 @@ fn main() {
         println!("{}", HELP_MSG);
         return;
     } else if switch_is_set(&["-m", "--manage-dirs"]) {
-        println!("Dodaj co najmniej tylko jeden folder do wyszukiwania plków");
         config.data.dirs = open_crud(config.data.dirs);
         config.save();
+
         return;
     }
 
-    let files = select_to_copy(config.data.dirs);
+    // let files = select_to_copy(config.data.dirs);
 
-    for file in files {
-        println!("{}", file);
-    }
+    // for file in files {
+    //     println!("{}", file);
+    // }
 }
