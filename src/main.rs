@@ -2,11 +2,11 @@ use configuer::Configuer;
 use serde::{Deserialize, Serialize};
 use std::env;
 
-// mod copy_files;
+mod copy_files;
 mod crud_dirs;
 mod messages;
 
-// use copy_files::select_to_copy;
+use copy_files::select_to_copy;
 use crud_dirs::open_crud;
 use messages::*;
 
@@ -42,9 +42,9 @@ fn main() {
         return;
     }
 
-    // let files = select_to_copy(config.data.dirs);
+    let files = select_to_copy(config.data.dirs);
 
-    // for file in files {
-    //     println!("{}", file);
-    // }
+    for file in files {
+        println!("{:?}", file);
+    }
 }
