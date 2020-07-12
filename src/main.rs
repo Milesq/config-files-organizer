@@ -16,6 +16,8 @@ struct MyData {
 }
 
 fn main() {
+    print!("{}[2J", 27 as char);
+
     let mut config = Configuer::with_file("config-files-ini.bin").on_create(|| {
         let dirs = open_crud(Vec::new());
         MyData { dirs }
