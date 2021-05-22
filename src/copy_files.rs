@@ -66,6 +66,6 @@ pub fn copy_file(path: String) {
     current_dir.push(file_name);
 
     if let Err(err) = fs::copy(&path, current_dir) {
-        println!("Nie można skopiować pliku\n{}\n\n\n{:?}", path, err);
+        println!("Cannot copy file\n{}\n\n\n{:?}", path, err);
     }
 }

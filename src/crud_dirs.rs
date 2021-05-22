@@ -23,7 +23,7 @@ pub fn open_crud(mut dirs: Vec<String>) -> Vec<String> {
                     .with_prompt("Podaj ścieżkę katalogu")
                     .validate_with(|input: &str| -> Result<(), &str> {
                         if !Path::new(input).is_dir() {
-                            Err("Podana ścieżka nie jest katalogiem")
+                            Err("This directory doesn't exists")
                         } else {
                             Ok(())
                         }
@@ -35,7 +35,7 @@ pub fn open_crud(mut dirs: Vec<String>) -> Vec<String> {
             }
             MenuOption::RmDir => {
                 if dirs.len() == 0 {
-                    println!("Nie ma dodanych katalogów");
+                    println!("There are no directories");
                     continue;
                 }
 
@@ -78,10 +78,10 @@ impl From<usize> for MenuOption {
     }
 }
 
-const ADD_DIR: &str = "Dodaj Katalog";
-const LIST_DIRS: &str = "Pokaż zapisane katalogi";
-const RM_DIR: &str = "Usuń Katalog";
-const EXIT: &str = "Wyjście";
+const ADD_DIR: &str = "Add Directory";
+const LIST_DIRS: &str = "Show Directories";
+const RM_DIR: &str = "Remove Directory";
+const EXIT: &str = "Exit";
 
 fn menu() -> MenuOption {
     let selected_opt = Select::new()

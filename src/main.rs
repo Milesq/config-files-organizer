@@ -19,7 +19,7 @@ fn main() {
     print!("{esc}[2J{esc}[1;1H", esc = 27 as char);
 
     let mut config = Configuer::with_file("config-files-ini.bin").on_create(|| {
-        println!("Dodaj co najmniej jeden folder do wyszukiwania plków");
+        println!("You have to add at least one directory");
 
         let dirs = open_crud(Vec::new());
         MyData { dirs }
